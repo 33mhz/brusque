@@ -1,0 +1,57 @@
+{
+  "name": "Brusque",
+  "version": "2016.11.7",
+  "manifest_version": 2,
+  "description": "A minimalist pnut.io client",
+  "icons": {
+    "16": "img/br.png",
+    "48": "img/br.png",
+    "128": "img/br.png"
+  },
+  "page_action": {
+    "default_icon": "img/br.png",
+    "default_title": "Number of available characters"
+  },
+  "background": {
+    "scripts": [
+      "libs/jquery-min.js",
+      "libs/underscore-min.js",
+      "libs/backbone-min.js",
+      "js/app.js",
+      "js/config.js",
+      "js/accounts.js",
+      "js/views/omnibox.js",
+      "js/views/notifications.js",
+      "js/posts.js",
+      "js/interactions.js",
+      "js/mentions.js",
+      "js/background.js"
+    ]
+  },
+  "minimum_chrome_version": "32",
+  "options_page": "options.html",
+  "permissions": [
+    "https://*.pnut.io/*",
+    "<all_urls>",
+    "notifications",
+    "tabs",
+    "storage"
+  ],
+  "omnibox": { "keyword" : "pnut" },
+  "web_accessible_resources": [
+    "callback.html",
+    "options.html",
+    "img/br.png"
+  ],
+  "content_scripts": [
+    {
+      "matches": [ "*://twitter.com/intent/tweet*" ],
+      "css": [ "css/content_twitter.css" ],
+      "js": [ "libs/jquery-min.js", "js/content_twitter.js" ]
+    },
+    {
+      "matches": [ "https://pnut.io/account/" ],
+      "js": [ "libs/jquery-min.js", "js/content_alpha.js" ]
+    }
+  ]
+}
