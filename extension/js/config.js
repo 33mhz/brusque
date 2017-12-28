@@ -24,7 +24,6 @@ window.Config = Backbone.Model.extend({
    */
   blacklist: {
     clientId: '4lARtAs5HQOzhsq9f6X6uhwKbsKjWHKS', // Brusque
-    googleAnalyticsAccount: 'UA-2706568-45',
     authorizeBaseUrl: 'https://pnut.io/oauth/authorize',
     authenticateBaseUrl: 'https://pnut.io/oauth/authenticate',
     accessTokenUrl: 'https://pnut.io/oauth/access_token',

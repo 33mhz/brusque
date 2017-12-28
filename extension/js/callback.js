@@ -28,17 +28,22 @@ function parseAccessToken() {
 function successCallback() {
   console.log('Account fetch succesful');
   accounts.add(account);
-  // TODO: This is a bit of a hack.
-  // Redirects tend to cache weird for extension files so open and close tabs instead
   setTimeout(function() {
-    window.open(chrome.extension.getURL('/options.html'));
-    window.close();
+    chrome.runtime.sendMessage({redirect: chrome.extension.getURL('/options.html')});
   }, 2500)
 }
 
 
 function errorCallback() {
-  alert('Oops. Unable to get full account details. Please try again or say wut, wut to @abraham');
+  alert('Oops. Unable to get full account details. Please try again or say wut, wut to @33MHz.');
+  var sending = browser.runtime.sendMessage({
+    greeting: 'Oops. Unable to get full account details. Please try again or say wut, wut to @33MHz.'
+  });
+  sending.then(function(message) {
+    console.log(`Message from the background script:  ${message.response}`);
+  }, function(error) {
+    console.log(`Error: ${error}`);
+  }); 
 }
 
 function init() {
@@ -47,7 +52,7 @@ function init() {
   }
   var accessToken = parseAccessToken();
   if (!accessToken) {
-    alert('Oops. Unable to get access_token. Please try again or say wut, wut to @abraham');
+    alert('Oops. Unable to get access token. Please try again or say wut, wut to @33MHz.');
   } else {
     console.log('access_token set and fetching account');
     account.set('access_token', accessToken);

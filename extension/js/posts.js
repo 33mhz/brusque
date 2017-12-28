@@ -47,23 +47,20 @@ window.Post = Backbone.Model.extend({
   success: function(model, textStatus, jqXHR) {
     var notification = new TextNotificationView({
       title: 'Successfully posted to pnut.io',
-      body: model.get('text'),
-      image: model.get('user').content.avatar_image.link,
-      url: 'https://pnut.io/@' + model.get('user').username,
-      timeout: 5 * 1000,
-      type: 'PostSuccess'
-    });
+      message: model.get('text'),
+      iconUrl: model.get('user').content.avatar_image.link + '?w=200',
+      type: 'basic'
+    }, 'https://pnut.io/@' + model.get('user').username);
     notification.render();
   },
 
 
   error: function(msg) {
     var notification = new TextNotificationView({
-      image: chrome.extension.getURL('/img/br.png'),
+      iconUrl: chrome.extension.getURL('/img/br-128.png'),
       title: msg || 'Posting to pnut.io failed',
-      body: 'Please try agian. This notification will automatically go poof.',
-      timeout: 10 * 1000,
-      type: 'PostError'
+      message: 'Please try agian. This notification will automatically go poof.',
+      type: 'basic'
     });
     notification.render();
   }
@@ -108,7 +105,7 @@ var Posts = Backbone.Collection.extend({
       update: true,
       data: {
         count: 20, // TODO: start using since_id
-        include_post_annotations: 1
+        include_post_raw: 1
       },
       headers: {
         'Authorization': 'Bearer ' + accounts.at(0).get('access_token')
@@ -122,24 +119,22 @@ var Posts = Backbone.Collection.extend({
     if (response.status === 401) {
       console.log('Invalid access_token');
       var notification = new TextNotificationView({
-        image: chrome.extension.getURL('/img/br.png'),
+        iconUrl: chrome.extension.getURL('/img/br-128.png'),
         title: 'Authentication failed',
-        body: 'Click here to sign in to pnut.io again.',
-        url: chrome.extension.getURL('/options.html'),
-        type: 'AuthError'
-      });
+        message: 'Click here to sign in to pnut.io again.',
+        type: 'basic'
+      }, chrome.extension.getURL('/options.html'));
       notification.render();
       // TODO: update this to support multiple accounts
       accounts.remove(accounts.at(0));
     } else {
       console.log('Unkown error');
       var notification = new TextNotificationView({
-        image: chrome.extension.getURL('/img/br.png'),
+        iconUrl: chrome.extension.getURL('/img/br-128.png'),
         title: 'Unkown error checking for posts',
-        body: 'If you get this a lot please ping @abraham',
-        url: 'https://alpha.app.net/abraham',
-        type: 'UnknownError'
-      });
+        message: 'If you get this a lot please ping @33MHz',
+        type: 'basic'
+      }, 'https://pnut.io/@33MHz');
       notification.render();
     }
     return this;

@@ -21,7 +21,7 @@ function addShareLink(post) {
 function handleClick(event) {
   event.preventdefault;
   var $post = $(this).closest('.post-container');
-  var text = 'Shared @' + $post.data('post-author-username') + ': ' + $post.find('[itemscope="https://pnut.io/schemas/Post"]').text() + ' ';
+  var text = 'Shared @' + $post.data('post-author-username') + ': ' + $post.find('[itemscope itemtype="https://pnut.io/schemas/Post"]').text() + ' ';
   $('[name="post"]').data('brusque-text', text);
   // Delay execution until after pnut.io adds text to the post textarea
   window.setTimeout(function() {

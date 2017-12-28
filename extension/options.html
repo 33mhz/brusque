@@ -2,53 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Brusque options</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
-      header {
-        padding-top: 40px;
-        padding-bottom: 40px;
-      }
-      footer {
-        height: 60px;
-        background-color: #f5f5f5;
-        margin-left: -20px;
-        margin-right: -20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        margin-top: 60px;
-      }
-      .hidden {
-        display:none;
-      }
-      #wrap {
-        min-height: 100%;
-        height: auto !important;
-        height: 100%;
-        margin: 0 auto -60px;
-      }
-      .container .credit {
-        margin: 20px 0;
-      }
-      #actions-time {
-        position: relative;
-        left: 190px;
-        bottom: 30px;
-      }
-      #auto-dismiss-time {
-        position: relative;
-        left: 260px;
-        bottom: 30px;
-      }
-    </style>
-
-
+    <link href="/css/styles.css" rel="stylesheet">
   </head>
 
 
@@ -58,20 +15,18 @@
 
 
         <header>
-          <h1>Brusque <small>Minimalist pnut.io client for Google Chrome</small></h1>
+          <h1>Brusque <small>Minimalist pnut.io WebExtensions client</small></h1>
         </header>
 
 
         <div id="content">
-
-
           <div class="row" id="features">
             <h2>Features</h2>
             <ul>
-              <li>Post from the omnibox by typing <i>"pnut" &lt;space&gt; "msg" &lt;enter&gt;</i></li>
+              <li>Post from the omnibox by typing <em>"br [your message]" &lt;enter&gt;</em></li>
               <li>Post to pnut.io buttons on Twitter share intents</li>
-              <li>View profiles from the omnibox by typing <i>"pnut" &lt;space&gt; "name" &lt;down&gt; &lt;down&gt; &lt;enter&gt;</i></li>
-              <li>View #hashtag posts from the omnibox by typing <i>"pnut" &lt;space&gt; "hashtag" &lt;down&gt; &lt;down&gt; &lt;down&gt; &lt;enter&gt;</i></li>
+              <li>View profiles from the omnibox by typing <em>"br @@[username]" &lt;enter&gt;</em></li>
+              <li>View #tag posts from the omnibox by typing <em>"br ##[tag]" &lt;enter&gt;</em></li>
             </ul>
           </div>
 
@@ -86,7 +41,7 @@
 
 
             <div class="row hidden offset2" id="accounts-add">
-              <a target="_blank" class="btn btn-success btn-small start-auth" id="account-btn"><i class="icon-user icon-white"></i> Connect pnut.io account</a>
+              <a target="_blank" class="btn btn-success btn-small start-auth" id="account-btn"><em class="icon-user icon-white"></em> Connect pnut.io account</a>
             </div>
 
 
@@ -94,9 +49,6 @@
               List of accounts
             </div>
           </div>
-
-
-          <br>
 
 
           <div class="row hidden" id='options'>
@@ -147,15 +99,13 @@
                     <input type="checkbox" id="actions-star" data-name="actionsStar" checked> Notify of bookmarks of my content
                   </label>
                   <label class="checkbox">
-                    <span class='muted'>Support for messages and channels coming soon.</span>
+                    <span class='muted'>Support for messages and channels not implemented yet.</span>
                     <!--<input type="checkbox" id="actions-messages" data-name="actionsMessages" checked> Notify of messages-->
                   </label>
                 </div>
               </div>
             </div>
           </div>
-
-
         </div>
 
 
@@ -167,8 +117,8 @@
     <footer>
       <div class="container">
         <p class="muted credit">
-          Rebuilt <a href="https://alpha.app.net/abraham">@abraham's</a> Succynct by <a href="https://pnut.io/33mhz">@33MHz</a> to help make <a href="https://pnut.io">pnut.io</a> more awesomesauce.
-          Check out the <a href="https://chrome.google.com/webstore/detail/bohjpenpllkadgmknlgkahfbiepenhkj">Chrome Web Store page</a> and the <a href="https://github.com/33mhz/brusque">Source code</a>.
+          Rebuilt <a href="https://pnut.io/@abraham">@abraham's</a> Succynct by <a href="https://pnut.io/@33mhz">@33MHz</a> to help make <a href="https://pnut.io">pnut.io</a> more awesomesauce.
+          Check out the <a href="https://chrome.google.com/webstore/detail/bohjpenpllkadgmknlgkahfbiepenhkj" target="_blank">Chrome Web Store page</a> and the <a href="https://github.com/33mhz/brusque" target="_blank">Source code</a>.
         </p>
       </div>
     </footer>

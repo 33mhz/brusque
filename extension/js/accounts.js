@@ -53,7 +53,6 @@ window.Accounts = Backbone.Collection.extend({
    * Get accounts collection from chrome.storage.sync
    */
   getFromChrome: function() {
-    console.log('accounts.getFromChrome');
     chrome.storage.sync.get('accounts', this.getFromChromeCallback);
   },
 
@@ -62,7 +61,6 @@ window.Accounts = Backbone.Collection.extend({
    * Set changes of chrome.storage.sync to accounts collection
    */
   getFromChromeCallback: function(items){
-    console.log('accounts.getFromChromeCallback', items);
     if (items['accounts']){
       this.reset(items['accounts']);
     }
@@ -76,13 +74,11 @@ window.Accounts = Backbone.Collection.extend({
    * Set changes of chrome.storage.sync to accounts collection
    */
   setChomeChangesToCollection: function(changes, ns) {
-    console.log('accounts.setChomeChangesToModel', changes, ns);
     // Ignore local changes
     if (ns != 'sync') {
       return this;
     }
     if (changes['accounts']) {
-      console.log('accounts.setChomeChangesToCollection:set', changes['accounts']);
       this.reset(changes['accounts'].newValue);
     }
   },
@@ -94,7 +90,6 @@ window.Accounts = Backbone.Collection.extend({
    * Trigger at most once every five seconds
    */
    setCollectionChangesToChrome: _.debounce(function(model, collection, options) {
-    console.log('accounts.setCollectionChangesToChrome', model, collection, options);
     chrome.storage.sync.set({'accounts': this.toJSON()});
   }, 2000),
 

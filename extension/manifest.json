@@ -1,16 +1,21 @@
 {
   "name": "Brusque",
-  "version": "2016.11.7",
+  "version": "0.2.0",
   "manifest_version": 2,
   "description": "A minimalist pnut.io client",
-  "icons": {
-    "16": "img/br.png",
-    "48": "img/br.png",
-    "128": "img/br.png"
+  "applications": {
+    "gecko": {
+      "id": "brusque@pnut.io"
+    }
   },
-  "page_action": {
-    "default_icon": "img/br.png",
-    "default_title": "Number of available characters"
+  "icons": {
+    "16": "img/br-16.png",
+    "128": "img/br-128.png",
+    "240": "img/br-240.png"
+  },
+  "browser_action": {
+    "default_icon": "img/br-128.png",
+    "default_title": "Brusque Options"
   },
   "background": {
     "scripts": [
@@ -29,7 +34,9 @@
     ]
   },
   "minimum_chrome_version": "32",
-  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html"
+  },
   "permissions": [
     "https://*.pnut.io/*",
     "<all_urls>",
@@ -37,11 +44,11 @@
     "tabs",
     "storage"
   ],
-  "omnibox": { "keyword" : "pnut" },
+  "omnibox": { "keyword" : "br" },
   "web_accessible_resources": [
     "callback.html",
     "options.html",
-    "img/br.png"
+    "img/br-128.png"
   ],
   "content_scripts": [
     {

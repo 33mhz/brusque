@@ -1,0 +1,23 @@
+footer {
+    background-color: #f5f5f5;
+    margin-top: 60px;
+}
+.hidden {
+    display:none;
+}
+.container {
+    max-width:940px;
+}
+.row {
+    margin-left:auto;
+}
+#actions-time {
+    position: relative;
+    left: 190px;
+    bottom: 30px;
+}
+#auto-dismiss-time {
+    position: relative;
+    left: 260px;
+    bottom: 30px;
+}

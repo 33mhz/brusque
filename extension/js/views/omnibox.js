@@ -23,7 +23,7 @@ window.OmniboxView = Backbone.View.extend({
     }
     
     if (text.indexOf('##') === 0) {
-      chrome.tabs.create({ url: 'https://api.pnut.io/v0/posts/streams/tag/' + text.substring(2) });
+      chrome.tabs.create({ url: 'https://pnut.io/tags/' + text.substring(2) });
       return;
     }
     
@@ -50,6 +50,7 @@ window.OmniboxView = Backbone.View.extend({
    */
   onInputChanged: function(text, suggest) {
     var suggestions = [];
+    var text = text.replace(/\[(.+)\]\((?:.+)\)/g,"$1 [domain]");
     suggestions.push({ content: '::' + text, description: (256 - text.length) + ' characters remaning' });
     
     if (text.indexOf(' ') > -1 || text.length === 0) {
@@ -60,8 +61,8 @@ window.OmniboxView = Backbone.View.extend({
       text = text.substring(1);
     }
     
-    suggestions.push({ content: '@@' + text, description: 'View the @<match>' + text + "</match> profile on pnut.io" });
-    suggestions.push({ content: '##' + text, description: 'Search the #<match>' + text + "</match> hashtag on pnut.io" });
+    suggestions.push({ content: '@@' + text, description: 'View the ' + text + " profile on pnut.io" });
+    suggestions.push({ content: '##' + text, description: 'Search the ' + text + " tag on pnut.io" });
     suggest(suggestions);
   }
 });

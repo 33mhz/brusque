@@ -36,10 +36,10 @@ window.Mention = Backbone.Model.extend({
 
   // success: function(response, textStatus, jqXHR) {
   //   var notification = new TextNotificationView({
-  //     title: 'Successfully posted to App.net',
+  //     title: 'Successfully posted to pnut.io',
   //     body: response.text,
-  //     image: response.user.avatar_image.url,
-  //     url: 'https://alpha.app.net/' + response.user.username + '/post/' + response.id,
+  //     image: response.user.avatar_image.link,
+  //     url: 'https://pnut.io/@' + response.user.username + '/post/' + response.id,
   //     timeout: 5 * 1000,
   //     type: 'PostSuccess'
   //   });
@@ -50,8 +50,8 @@ window.Mention = Backbone.Model.extend({
   // error: function() {
   //   var notification = new TextNotificationView({
   //     image: chrome.extension.getURL('/img/br.png'),
-  //     title: 'Posting to App.net failed',
-  //     body: 'Please try agian. This notification will close in 10 seconds.',
+  //     title: 'Posting to pnut.io failed',
+  //     body: 'Please try again.',
   //     timeout: 10 * 1000,
   //     type: 'PostError'
   //   });
@@ -72,43 +72,6 @@ var Polling = Backbone.Collection.extend({
     _.bindAll(this, 'error');
     // _.extend(this, options);
   },
-
-
-  // update: function() {
-  //   if (window.account && window.account.get('accessToken') && config.get(this.configName)) {
-  //     this.fetch({ error: this.error });
-  //   }
-  //   return this;
-  // },
-
-
-  // error: function(collection, response, options) {
-  //   // TODO: update copy of notifications
-  //   if (response.status === 401) {
-  //     console.log('Invalid access_token');
-  //     var notification = new TextNotificationView({
-  //       image: chrome.extension.getURL('/img/br.png'),
-  //       title: 'Authentication failed',
-  //       body: 'Click here to sign in to App.net again.',
-  //       url: chrome.extension.getURL('/options.html'),
-  //       type: 'AuthError'
-  //     });
-  //     notification.render();
-  //     // TODO: update this to support multiple accounts
-  //     accounts.remove(accounts.at(0));
-  //   } else {
-  //     console.log('Unkown error');
-  //     var notification = new TextNotificationView({
-  //       image: chrome.extension.getURL('/img/br.png'),
-  //       title: 'Unkown error checking for posts',
-  //       body: 'If you get this a lot please ping @abraham',
-  //       url: 'https://alpha.app.net/abraham',
-  //       type: 'UnknownError'
-  //     });
-  //     notification.render();
-  //   }
-  //   return this;
-  // }
 
 
 });
@@ -140,14 +103,19 @@ var Mentions = Polling.extend({
       error: this.error,
       update: true,
       data: {
-        count: 20, // TODO: start using since_id
-        include_post_annotations: 1,
-        since_id: config.get('mentions_since_id')
+        include_post_raw: 1,
+        include_deleted: 0,
+        since_id: config.get('mentions_since_id') || 0
       },
       headers: {
         'Authorization': 'Bearer ' + accounts.at(0).get('access_token')
       }
     };
+    if (typeof options !== 'undefined') {
+      params.data.count = 1;
+    } else {
+      params.data.count = 20;
+    }
     _.extend(params, options);
     console.log('mentions.checkForNew', params);
     this.fetch(params);
@@ -163,38 +131,6 @@ var Mentions = Polling.extend({
     console.log('mentions.renderNotification');
     model.view.render();
   },
-
-
-  // renderNotification: function(model) {
-  //   var notification = new TextNotificationView({
-  //     image: model.get('user').avatar_image.url,
-  //     title: 'Mentioned by @' + model.get('user').username + ' on ADN',
-  //     body: model.get('text'),
-  //     url: 'https://alpha.app.net/' + model.get('user').username + '/post/' + model.get('id'),
-  //     type: 'Mention'
-  //   });
-  //   notification.render();
-  // },
-  // filterNewPosts: function() {
-  //   var models = [];
-  //   var lastCreatedAt = localStorage.getItem(this.configName + '_lastCreatedAt');
-  //   // Don't notify for new polling channels
-  //   if (!lastCreatedAt) {
-  //     localStorage.setItem(this.configName + '_lastCreatedAt', (new Date()).getTime());
-  //     return this;
-  //   }
-  //   
-  //   // Reject posts by authenticated account
-  //   models = this.reject(function(post){ return post.get('user').id === account.get('id'); });
-  //   // Filter out old posts
-  //   models = models.filter(function(post){ return (new Date(post.get('created_at'))).getTime() > parseInt(lastCreatedAt); });
-  //   
-  //   // Store latest created_at date for future matches
-  //   if (_.first(models)) {
-  //     localStorage.setItem(this.configName + '_lastCreatedAt', (new Date(_.first(models).get('created_at'))).getTime());
-  //   }
-  //   _.each(models, this.renderNotification);
-  // }
 
 
 });

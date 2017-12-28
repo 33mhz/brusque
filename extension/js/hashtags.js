@@ -15,7 +15,7 @@ var Hashtags = Posts.extend({
 
 
   url: function() {
-    return 'https://api.pnut.io/v0/posts/tag/' + this.hashtag;
+    return 'https://pnut.io/tags/' + this.hashtag;
   },
 
 
