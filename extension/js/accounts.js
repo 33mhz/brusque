@@ -101,7 +101,7 @@ window.Accounts = Backbone.Collection.extend({
     var url = 'https://pnut.io/oauth/authenticate'
     url += '?client_id=' + config.get('clientId')
     url += '&response_type=token'
-    url += '&redirect_uri=https://pnut.io/doesntexistbrusque/'
+    url += '&redirect_uri=' + chrome.extension.getURL('/callback.html')
     url += '&scope=' + config.get('apiScope');
     return url;
   }
