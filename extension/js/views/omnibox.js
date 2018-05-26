@@ -18,12 +18,12 @@ window.OmniboxView = Backbone.View.extend({
    */
   onInputEntered: function(text) {
     if (text.indexOf('@@') === 0) {
-      chrome.tabs.create({ url: 'https://pnut.io/@' + text.substring(2) });
+      chrome.tabs.create({ url: 'https://beta.pnut.io/@' + text.substring(2) });
       return;
     }
     
     if (text.indexOf('##') === 0) {
-      chrome.tabs.create({ url: 'https://pnut.io/tags/' + text.substring(2) });
+      chrome.tabs.create({ url: 'https://beta.pnut.io/tags/' + text.substring(2) });
       return;
     }
     
@@ -50,7 +50,7 @@ window.OmniboxView = Backbone.View.extend({
    */
   onInputChanged: function(text, suggest) {
     var suggestions = [];
-    var text = text.replace(/\[(.+)\]\((?:.+)\)/g,"$1 [domain]");
+    var text = text.replace(/\[(.+)\]\(((?:https?:\/\/)?([^/?#]+)[^\)]*)\)/g,"$1 [$3]");
     suggestions.push({ content: '::' + text, description: (256 - text.length) + ' characters remaning' });
     
     if (text.indexOf(' ') > -1 || text.length === 0) {

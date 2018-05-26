@@ -1,8 +1,8 @@
 {
   "name": "Brusque",
-  "version": "2017.12.29",
+  "version": "2018.05.26",
   "manifest_version": 2,
-  "description": "A minimalist pnut.io client",
+  "description": "A minimalist Pnut.io client",
   "icons": {
     "16": "img/br-16.png",
     "128": "img/br-128.png",
@@ -54,6 +54,10 @@
     {
       "matches": [ "https://pnut.io/account/" ],
       "js": [ "libs/jquery-min.js", "js/content_alpha.js" ]
+    },
+    {
+      "matches": [ "https://pnut.io/doesntexistbrusque/" ],
+      "js": [ "js/intercept.js" ]
     }
   ]
 }

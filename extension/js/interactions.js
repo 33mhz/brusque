@@ -108,20 +108,20 @@ var Interactions = Polling.extend({
       update: true,
       data: {
         include_post_raw: 1,
-        since_id: config.get('interactions_since_id') || 0,
+        since_id: config.get('interactions_since_id') || 'last_read',
         exclude: 'reply'
       },
       headers: {
         'Authorization': 'Bearer ' + accounts.at(0).get('access_token')
       }
     };
-    if (config.get('actionsFollow')) {
+    if (!config.get('actionsFollow')) {
       params.data.exclude += ',follow';
     }
-    if (config.get('actionsStar')) {
+    if (!config.get('actionsStar')) {
       params.data.exclude += ',bookmark';
     }
-    if (config.get('actionsRepost')) {
+    if (!config.get('actionsRepost')) {
       params.data.exclude += ',repost';
     }
     if (typeof options !== 'undefined') {
@@ -136,6 +136,9 @@ var Interactions = Polling.extend({
 
 
   parse: function(response) {
+    if (typeof response.meta.max_id !== 'undefined') {
+      config.set('interactions_since_id', response.meta.max_id);
+    }
     return response.data;
   },
 
