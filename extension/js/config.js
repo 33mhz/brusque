@@ -29,7 +29,7 @@ window.Config = Backbone.Model.extend({
     accessTokenUrl: 'https://pnut.io/oauth/access_token',
     apiBaseUrl: 'https://api.pnut.io/v0',
     baseUrl: 'https://pnut.io',
-    apiScope: 'stream,write_post,follow',
+    apiScope: 'stream,write_post',
   },
 
 
@@ -46,8 +46,8 @@ window.Config = Backbone.Model.extend({
     actionsRepost: true,
     actionsMention: true,
     messages: false,
-    mentions_since_id: 0,
-    interactions_since_id: 0
+    mentions_since_id: 'last_read',
+    interactions_since_id: 'last_read'
   },
 
 

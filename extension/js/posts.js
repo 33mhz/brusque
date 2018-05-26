@@ -18,7 +18,8 @@ window.Post = Backbone.Model.extend({
    * Basic validations of a post
    */
   validate: function(attributes) {
-    if (attributes.text.length > 256) {
+    var text = attributes.text.replace(/\[(.+)\]\(((?:https?:\/\/)?([^/?#]+)[^\)]*)\)/g,"$1 [$3]");
+    if (text.length > 256) {
       return 'text is too long';
     }
   },
@@ -47,7 +48,7 @@ window.Post = Backbone.Model.extend({
   success: function(model, textStatus, jqXHR) {
     var notification = new TextNotificationView({
       title: 'Successfully posted to pnut.io',
-      message: model.get('text'),
+      message: model.get('text').replace(/\[(.+)\]\(((?:https?:\/\/)?([^/?#]+)[^\)]*)\)/g,"$1 [$3]"),
       iconUrl: model.get('user').content.avatar_image.link + '?w=200',
       type: 'basic'
     }, 'https://pnut.io/@' + model.get('user').username);
@@ -58,7 +59,7 @@ window.Post = Backbone.Model.extend({
   error: function(msg) {
     var notification = new TextNotificationView({
       iconUrl: chrome.extension.getURL('/img/br-128.png'),
-      title: msg || 'Posting to pnut.io failed',
+      title: msg || 'Posting to Pnut failed',
       message: 'Please try agian. This notification will automatically go poof.',
       type: 'basic'
     });
@@ -121,7 +122,7 @@ var Posts = Backbone.Collection.extend({
       var notification = new TextNotificationView({
         iconUrl: chrome.extension.getURL('/img/br-128.png'),
         title: 'Authentication failed',
-        message: 'Click here to sign in to pnut.io again.',
+        message: 'Click here to sign in to Pnut again.',
         type: 'basic'
       }, chrome.extension.getURL('/options.html'));
       notification.render();

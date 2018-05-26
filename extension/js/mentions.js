@@ -105,7 +105,7 @@ var Mentions = Polling.extend({
       data: {
         include_post_raw: 1,
         include_deleted: 0,
-        since_id: config.get('mentions_since_id') || 0
+        since_id: config.get('mentions_since_id') || 'last_read'
       },
       headers: {
         'Authorization': 'Bearer ' + accounts.at(0).get('access_token')
@@ -123,6 +123,9 @@ var Mentions = Polling.extend({
 
 
   parse: function(response) {
+    if (typeof response.meta.max_id !== 'undefined') {
+      config.set('mentions_since_id', response.meta.max_id);
+    }
     return response.data;
   },
 
